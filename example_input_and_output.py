@@ -1,6 +1,7 @@
 
 import pandas as pd
 from partial_match_join import partial_match_join_all_matches_returned
+import pdb
 
 #### INPUT 1 #####
 d1 = pd.DataFrame({
@@ -26,7 +27,7 @@ d2 = pd.DataFrame({
         ], 
     'Keywords': [
         "men's halloween costumes", 
-        "halloween costumes for men",
+        "halloween costumes for mens",
         "costumes for halloween party",
         "costumes for halloween",
         "womens masks",
@@ -58,7 +59,7 @@ output = pd.DataFrame({
         ],    
     'Keywords': [
         "men's halloween costumes", 
-        "halloween costumes for men",
+        "halloween costumes for mens",
         "costumes for halloween party",
         "costumes for halloween",
         "womens masks",
@@ -91,14 +92,13 @@ output = pd.DataFrame({
         "Removed apostrophe from tag. Removed `and`. Exact Order.", ### Omitted Words == `for`, `and`, `in` ### `&` is converted into `and` for matching
         ]})
 
-wip_function = partial_match_join_all_matches_returned(full_values=d1['Tag'], matching_criteria=d2['Keywords'])
-wip_function_output = pd.concat(wip_function)
+wip_function = partial_match_join_all_matches_returned(full_values=d2['Keywords'], matching_criteria=d1['Tag'])
 
 print('##########')
 print('##########')
 print('##########')
 print('WIP Script:')
-print(wip_function_output)
+print(wip_function)
 print('##########')
 print('##########')
 print('##########')
