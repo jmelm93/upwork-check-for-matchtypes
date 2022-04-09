@@ -1,7 +1,7 @@
 import pdb
 import pandas as pd
 
-omit_keywords = ["'", "for", "and", "in", "&", "party"]
+omit_keywords = ["'", "for", "and", "in", "&"]
 def matcher(value, match):
     match = match.copy()
     res = match.loc[match.phrase == value, "MatchID"]
