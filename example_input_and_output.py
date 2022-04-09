@@ -76,7 +76,7 @@ output = pd.DataFrame({
         "Partial Match",
         "Exact Match",
         ],    
-    #### There are 2 potential phrases to include if the condition is met #####
+    #### There are 3 potential phrases to include if the condition is met #####
     #### Phrase 1 == `Removed apostrophe from tag.` ## If an apostrophee had to be removed in order for match to be achieved
     #### Phrase 2 == Removed `_________`. ## If any "omitted words" were found in the keyword
     #### Phrase 3 == `Exact Order.` ## If the `Keyword`` is exact order of words in `Tag``
