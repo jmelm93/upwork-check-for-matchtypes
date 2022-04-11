@@ -1,5 +1,15 @@
 import pdb
 import pandas as pd
+import inflect
+
+
+p = inflect.engine()
+def _compare_singular_plural(match, value): 
+    core = lambda x: p.singular_noun(x) if p.singular_noun(x) else x
+    match = [core(v) for v in match]
+    value = [core(v) for v in value]
+    return all([a in match for a in value])
+
 
 omit_keywords = ["'", "for", "and", "in", "&"]
 def matcher(value, match):
@@ -24,7 +34,13 @@ def matcher(value, match):
     res = match.loc[match.phrase.apply(lambda x: all([a in x for a in value])), "MatchID"]
     if len(res) > 0: return (res.iloc[0], "Partially Match", "Removed apostrophe from Tag. Removed 'for'...")
 
-    return (0, "No Match")
+    #if no match.. then match by avoiding singular & plural.
+    res = match.loc[match.phrase.apply(lambda x: _compare_singular_plural(x, value)), "MatchID"]
+    if len(res) > 0: return (res.iloc[0], "Partially Match", "Removed apostrophe from Tag. Avoided singular & plural. Removed 'for'...")
+    
+    return (0, "No Match", "")
+
+
 
 
 
@@ -44,13 +60,13 @@ def partial_match_join_all_matches_returned(full_values, matching_criteria):
     full_values["phrase"] = full_values.full.str.lower()
     full_values = full_values.drop_duplicates()
     
+    
     matching_criteria = matching_criteria.to_frame("match")
     matching_criteria["phrase"] = matching_criteria.match.str.lower()
     matching_criteria = matching_criteria.drop_duplicates()
     matching_criteria["MatchID"] = matching_criteria.index + 1
-
     full_values[["MatchID", "Match Type", "Reason"]] = full_values.phrase.apply(lambda x: matcher(x, matching_criteria)).apply(pd.Series)
-
+    
     #after matching, there is no need of phrase columns
     full_values = full_values.drop("phrase", axis=1)
     matching_criteria = matching_criteria.drop("phrase", axis=1)

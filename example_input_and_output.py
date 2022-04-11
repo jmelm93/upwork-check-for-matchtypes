@@ -27,7 +27,7 @@ d2 = pd.DataFrame({
         ], 
     'Keywords': [
         "men's halloween costumes", 
-        "halloween costumes for mens",
+        "halloween costume for mens",
         "costumes for halloween party",
         "costumes for halloween",
         "womens masks",
@@ -59,7 +59,7 @@ output = pd.DataFrame({
         ],    
     'Keywords': [
         "men's halloween costumes", 
-        "halloween costumes for mens",
+        "halloween costume for mens",
         "costumes for halloween party",
         "costumes for halloween",
         "womens masks",
@@ -93,14 +93,4 @@ output = pd.DataFrame({
         ]})
 
 wip_function = partial_match_join_all_matches_returned(full_values=d2['Keywords'], matching_criteria=d1['Tag'])
-
-print('##########')
-print('##########')
-print('##########')
-print('WIP Script:')
 print(wip_function)
-print('##########')
-print('##########')
-print('##########')
-print('Desired Output:')
-print(output)
